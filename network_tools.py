@@ -4,6 +4,7 @@ import pyfiglet
 import socket 
 from datetime import datetime 
 from tqdm import tqdm
+from fuzzing.fuzzer import FuzzExecutor
 
 class NetworkTools():
     '''
@@ -111,4 +112,34 @@ class NetworkTools():
 
 # net = NetworkTools()
 # net.tcp_port_scanner()
+
+
+# import fuzzing
+# seed = "This could be the content of a huge text file."
+# number_of_fuzzed_variants_to_generate = 10
+# fuzz_factor = 7
+# fuzzed_data = fuzzing.fuzz_string(seed, number_of_fuzzed_variants_to_generate, fuzz_factor)
+# print(fuzzed_data)
+
+
+# Files to use as initial input seed.
+file_list = ["download.png", 'main.py']
+
+# List of applications to test.
+apps_under_test = ["Google Chrome.Ink", "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"]
+
+number_of_runs = 13
+
+def test():
+    fuzz_executor = FuzzExecutor(apps_under_test, file_list)
+    fuzz_executor.run_test(number_of_runs)
+    return fuzz_executor.stats
+
+# def main():
+#     for i in file_list:
+#         with open(i,'r+') as f:
+#             print(f)
+
+#     stats = test()
+#     print(stats)
 
