@@ -73,7 +73,7 @@ class Asymmetric:
 aasym = Asymmetric()
 aasym.rsaEncrypt('aaaaa'.encode("utf-8"))
 aasym.rsaDecrypt()
-aasym.rsaVerifySignature(b'aaaaaaaa', aasym.rsaSign(b'aaaaaaaa'))
+aasym.rsaVerifySignature(str.encode('aaaaaaaa'), aasym.rsaSign(str.encode('aaaaaaaa')))
 
 
 		
