@@ -2,10 +2,15 @@ from Crypto.PublicKey import RSA
 from Crypto.Random import get_random_bytes
 from Crypto.Cipher import AES, PKCS1_OAEP
 from hashlib import sha512
+import elgamal
+
 
 class Asymmetric:
 
+	elGamalKeys = elgamal.generate_keys()
+
 	key = RSA.generate(2048)
+	
 
 	public_key = key.publickey().export_key()
 	file_out = open("receiver.pem", "wb")
@@ -16,6 +21,9 @@ class Asymmetric:
 	file_out = open("private.pem", "wb")
 	file_out.write(private_key)
 	file_out.close()
+
+
+	############### RSA ####################
 
 	def rsaEncrypt(self, ch):
 	
@@ -67,14 +75,25 @@ class Asymmetric:
 		hash = int.from_bytes(sha512(msg).digest(), byteorder='big')
 		hashFromSignature = pow(sig, self.key.e, self.key.n)
 		print("Signature valid:", hash == hashFromSignature)
+
+
+	############### ELGAMAL ####################
+
+	def elgamalEncrypt(self, msg):
+		cipher = elgamal.encrypt(self.elGamalKeys['publicKey'], msg)
+		return cipher
+
+	def elgamaDecrypt(self,cipher):
+		plaintext = elgamal.decrypt(self.elGamalKeys['privateKey'], cipher)
+		print (plaintext)
 		
 		
 
 aasym = Asymmetric()
-aasym.rsaEncrypt('aaaaa'.encode("utf-8"))
-aasym.rsaDecrypt()
-aasym.rsaVerifySignature(str.encode('aaaaaaaa'), aasym.rsaSign(str.encode('aaaaaaaa')))
-
+#aasym.rsaEncrypt('aaaaa'.encode("utf-8"))
+#aasym.rsaDecrypt()
+#aasym.rsaVerifySignature(str.encode('aaaaaaaa'), aasym.rsaSign(str.encode('aaaaaaaa')))
+aasym.elgamaDecrypt(aasym.elgamalEncrypt('aaa'))
 
 		
 		
