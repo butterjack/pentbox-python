@@ -2,6 +2,7 @@ import base64 ,hashlib
 import pyinputplus as pyip
 import string
 import secrets
+import pyfiglet
 
 class Cryptographie:
 	'''
@@ -59,6 +60,10 @@ class Cryptographie:
 					and sum(c.isdigit() for c in password) >= 3):
 				break
 		return password
+
+	def menu(self):
+		ascii_banner = pyfiglet.figlet_format("HASHAGE") 
+        print(ascii_banner)
 
 
 cryp = Cryptographie()
