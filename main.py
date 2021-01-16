@@ -2,6 +2,7 @@ import pyinputplus as pyip
 import pyfiglet
 
 from SymmetricEncryption import SymmetricEncryption
+from AsymmetricEncryption import AsymmetricEncryption
 from Encoding import Encoding
 from Hashing import Hashing
 
@@ -19,7 +20,7 @@ def menu():
         elif(choice=='symmetric-encrypt'):
             SymmetricEncryption.menu()
         elif(choice=='asymmetric-encrypt'):
-            print('g')
+            AsymmetricEncryption.menu()
         
         elif(choice=='quit'):
             return
@@ -46,6 +47,8 @@ def main(mode):
         Hashing.hash_menu()
     if(mode=='crack'):
         Hashing.crack_menu()
+    if(mode=='asymmetric'):
+        AsymmetricEncryption.menu()
 
 
     if(mode=='nothing'):

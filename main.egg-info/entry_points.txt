@@ -1,0 +1,4 @@
+
+        [console_scripts]
+        jawher-yassine=main:main
+    

@@ -88,6 +88,7 @@ class SymmetricEncryption:
 		print(ascii_banner)
 
 		while(True):
+			print('\n')
 			choice = pyip.inputMenu(['encryption', 'quit'])
 			if(choice=='encryption'):
 				method = pyip.inputMenu(['AES', 'Salsa20'])
@@ -97,7 +98,7 @@ class SymmetricEncryption:
 				else: 
 					ciphertext = SymmetricEncryption.encrypt(method=method)
 				
-				print('\nFor decryption: \n')
+				print('\nFor decryption: ')
 				decrypt = pyip.inputMenu(['yes','no'])
 				if(decrypt=='no'):
 					continue
