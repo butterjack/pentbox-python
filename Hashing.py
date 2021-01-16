@@ -4,14 +4,13 @@ import string
 import secrets
 import pyfiglet
 
-class Cryptographie:
+class Hashing:
 	'''
 		1- string to base_64
 		2- string to multidigest(MD5, SHA1, SHA256, SHA384, SHA512, RIPEMD-160)
 		3- Hash Password Cracker (MD5, SHA1, SHA256, SHA384, SHA512, RIPEMD-160)
 		4- secure password generator
 	'''
-	methods = list(hashlib.algorithms_guaranteed)
 
 	@classmethod
 	def choose_method(cls):
@@ -37,17 +36,21 @@ class Cryptographie:
 		if(method.upper() == 'SHA512'):
 			return hashlib.sha512(encoded_text).hexdigest()
 
-	def multidigest(self , text):
-		method = Cryptographie.choose_method()
-		hash = Cryptographie.text_to_hash(text,method)
+	@classmethod
+	def multidigest(cls , text):
+		method = Hashing.choose_method()
+		hash = Hashing.text_to_hash(text,method)
 		return hash
 	
-	def password_cracker(self, hash, method, verbose= False):
+	@classmethod
+	def password_cracker(cls, hash):
+		methods = list(hashlib.algorithms_guaranteed)
 		with open('pentbox-wlist.txt', 'r+') as f:
 			passwords = f.read().splitlines()
 		for password in passwords: 
-			if( Cryptographie.text_to_hash(password,method) == hash ):
-				return password
+			for method in methods:
+				if( Hashing.text_to_hash(password,method) == hash ):
+					return password
 
 		return 'Sorry we didn\'t find the password'
 
@@ -61,13 +64,32 @@ class Cryptographie:
 				break
 		return password
 
-	def menu(self):
+	@classmethod
+	def hash_menu(cls):
 		ascii_banner = pyfiglet.figlet_format("HASHAGE") 
-        print(ascii_banner)
+		print(ascii_banner)
 
+		while(True):
+			print('\n')
+			choice = pyip.inputMenu(['hash','quit'])
+			if(choice=='hash'):
+				text = pyip.inputStr('Enter text for hashing : \n')
+				hashed_text = Hashing.multidigest(text)
+				print('New hashed text is : ' + hashed_text)
+			else:
+				return
 
-cryp = Cryptographie()
-print(cryp.multidigest('mecca'))
-hash = input('give your hash : ')
-x = cryp.password_cracker(hash,'md5')
-print(x)
+	@classmethod
+	def crack_menu(cls):
+		ascii_banner = pyfiglet.figlet_format("HASH CRACKER") 
+		print(ascii_banner)
+
+		while(True):
+			print('\n')
+			choice = pyip.inputMenu(['crack','quit'])
+			if(choice=='crack'):
+				hash = pyip.inputStr('Enter hash for cracking : \n')
+				cracked_hash = Hashing.password_cracker(hash)
+				print('Cracked hash is ====>   ' + cracked_hash)
+			else:
+				return

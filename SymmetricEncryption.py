@@ -110,7 +110,3 @@ class SymmetricEncryption:
 			else:
 				return
 				
-
-sym = SymmetricEncryption()
-sym.menu()
-# sym.encrypt()
