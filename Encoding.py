@@ -37,7 +37,8 @@ class Encoding:
 	def encode(cls,data, method):
 		if(method in ['utf8','ascii']):
 			encoded_text = str.encode(data,encoding=method)
-			print('your encoded text is : ' + encoded_text)
+			print('your encoded text is : ')
+			print(encoded_text)
 			return(encoded_text)
 		
 		elif(method == 'base64'):
@@ -69,7 +70,7 @@ class Encoding:
 	@classmethod
 	def decode(cls, encoded_data, method):
 		if(method in ['utf8','ascii']):
-			data = str.decode(encoded_data,encoding=method)
+			data = encoded_data.decode(encoding=method)
 			print('your decoded text is : ' + data)
 			return(data)
 		

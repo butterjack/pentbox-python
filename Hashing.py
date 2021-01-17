@@ -35,6 +35,24 @@ class Hashing:
 			return hashlib.sha384(encoded_text).hexdigest()
 		if(method.upper() == 'SHA512'):
 			return hashlib.sha512(encoded_text).hexdigest()
+		if(method.upper() == 'SHA3_256'):
+			return hashlib.sha3_256(encoded_text).hexdigest()
+		if(method.upper() == 'SHA3_384'):
+			return hashlib.sha3_384(encoded_text).hexdigest()
+		if(method.upper() == 'SHAKE_128'):
+			return hashlib.shake_128(encoded_text).hexdigest(128)
+		if(method.upper() == 'SHA224'):
+			return hashlib.sha224(encoded_text).hexdigest()
+		if(method.upper() == 'BLAKE2B'):
+			return hashlib.blake2b(encoded_text).hexdigest()
+		if(method.upper() == 'BLAKE2S'):
+			return hashlib.blake2s(encoded_text).hexdigest()
+		if(method.upper() == 'SHAKE_256'):
+			return hashlib.shake_256(encoded_text).hexdigest(256)
+		if(method.upper() == 'SHA3_512'):
+			return hashlib.sha3_512(encoded_text).hexdigest()
+		if(method.upper() == 'SHA3_224'):
+			return hashlib.sha3_224(encoded_text).hexdigest()
 
 	@classmethod
 	def multidigest(cls , text):
@@ -57,7 +75,7 @@ class Hashing:
 	def generate_password(self):
 		alphabet = string.ascii_letters + string.digits
 		while True:
-			password = ''.join(secrets.chouce(alphabet) for i in range(10))
+			password = ''.join(secrets.choice(alphabet) for i in range(10))
 			if (any(c.islower() for c in password)
 					and any(c.isupper() for c in password)
 					and sum(c.isdigit() for c in password) >= 3):
@@ -75,7 +93,7 @@ class Hashing:
 			if(choice=='hash'):
 				text = pyip.inputStr('Enter text for hashing : \n')
 				hashed_text = Hashing.multidigest(text)
-				print('New hashed text is : ' + hashed_text)
+				print(hashed_text)
 			else:
 				return
 
