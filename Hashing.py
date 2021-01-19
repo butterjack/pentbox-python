@@ -111,3 +111,4 @@ class Hashing:
 				print('Cracked hash is ====>   ' + cracked_hash)
 			else:
 				return
+
