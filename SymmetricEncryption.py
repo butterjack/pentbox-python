@@ -67,7 +67,7 @@ class SymmetricEncryption:
 			except ValueError:
 				print("Key incorrect or message corrupted")
 
-		elif(method=='Salasa20'):
+		elif(method=='Salsa20'):
 			if(len(key)<32):
 				key = key + str.encode((32-len(key))*'a')
 			elif(len(key)>32):
@@ -88,6 +88,7 @@ class SymmetricEncryption:
 		print(ascii_banner)
 
 		while(True):
+			print('\n')
 			choice = pyip.inputMenu(['encryption', 'quit'])
 			if(choice=='encryption'):
 				method = pyip.inputMenu(['AES', 'Salsa20'])
@@ -97,20 +98,16 @@ class SymmetricEncryption:
 				else: 
 					ciphertext = SymmetricEncryption.encrypt(method=method)
 				
-				print('\nFor decryption: \n')
+				print('\nFor decryption: ')
 				decrypt = pyip.inputMenu(['yes','no'])
 				if(decrypt=='no'):
 					continue
 				elif(method=='AES'):
 					SymmetricEncryption.decrypt(nonce,ciphertext,tag,method)
 				elif(method=='Salsa20'):
-					SymmetricEncryption.decrypt(ciphertext,method)
+					SymmetricEncryption.decrypt(nonce=None,ciphertext=ciphertext,tag=None,method=method)
 				
 
 			else:
 				return
 				
-
-sym = SymmetricEncryption()
-sym.menu()
-# sym.encrypt()
