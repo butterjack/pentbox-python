@@ -15,6 +15,7 @@ setup(
     ],
     entry_points='''
         [console_scripts]
+        pentbox=main:main
         jawher-yassine=main:main
     ''',
 )
